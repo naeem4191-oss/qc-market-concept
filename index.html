@@ -1,0 +1,487 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>QC Market homepage concept</title>
+<style>
+:root{
+  --display:"Lyon Display",Georgia,serif;--text:"Lyon Text",Georgia,serif;--sans:"GT America","Helvetica Neue",Arial,sans-serif;
+  --plum:#3a2235;--plum-2:#4a2e44;--coral:#ff536d;--coral-ink:#d8304b;--ink:#1d1419;--muted:#6f6169;
+  --paper:#fff;--stone:#f5f1ee;--line:#e6dfe2;--ease:cubic-bezier(.2,.7,.1,1);--gut:clamp(16px,4vw,56px)
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--paper);color:var(--ink);font:400 16px/1.3 var(--text);font-variant-numeric:lining-nums tabular-nums;-webkit-font-smoothing:antialiased;overflow-x:clip}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+:focus-visible{outline:2px solid var(--coral);outline-offset:3px}
+.wrap{padding:0 var(--gut);max-width:1440px;margin:0 auto}
+h1,h2{font-family:var(--display);font-weight:400;line-height:1;letter-spacing:0}
+h2{font-size:clamp(28px,3.2vw,44px)}
+em{font-style:normal;color:var(--coral)}
+.label{font:500 13px/1.2 var(--sans);color:var(--muted)}
+.sec{padding:clamp(56px,7vw,104px) 0}
+.sec-head{display:flex;align-items:end;justify-content:space-between;gap:24px;margin-bottom:28px}
+.sec-head .label{margin-bottom:10px;display:block}
+.link{font:500 14px var(--sans);display:inline-flex;gap:8px;align-items:center;border-bottom:1px solid currentColor;padding-bottom:3px;white-space:nowrap}
+.btn{display:inline-flex;align-items:center;gap:10px;font:500 15px var(--sans);padding:15px 26px;border-radius:2px;transition:background .3s,color .3s}
+.btn-coral{background:var(--coral);color:#fff}.btn-coral:hover{background:var(--coral-ink)}
+.btn-ghost{border:1px solid rgba(255,255,255,.7);color:#fff}.btn-ghost:hover{background:#fff;color:var(--plum)}
+.btn-plum{background:var(--plum);color:#fff}.btn-plum:hover{background:var(--plum-2)}
+
+/* trust bar + header */
+.topbar{background:var(--plum);color:#fff;font:400 13px var(--sans)}
+.topbar .wrap{display:flex;justify-content:center;gap:28px;padding-top:9px;padding-bottom:9px;flex-wrap:wrap}
+.topbar span{opacity:.9}
+header{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.96);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.hd{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:32px;height:72px}
+.logo{font:400 19px/1 var(--display);color:var(--plum)}
+.logo small{display:block;font-size:19px}
+.nav{display:flex;gap:26px;font:400 15px var(--sans);justify-content:center}
+.nav a{padding:6px 0;border-bottom:1px solid transparent}.nav a:hover{border-color:var(--coral)}
+.tools{display:flex;align-items:center;gap:14px}
+.search{display:flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:999px;padding:8px 14px;width:220px;color:var(--muted);font:400 14px var(--sans)}
+.lang{font:500 14px var(--sans);border:1px solid var(--plum);color:var(--plum);border-radius:999px;padding:6px 12px}
+.ico{width:22px;height:22px;stroke:var(--ink);fill:none;stroke-width:1.5}
+.cart{position:relative}.cart b{position:absolute;top:-6px;right:-8px;background:var(--coral);color:#fff;font:500 10px/16px var(--sans);min-width:16px;text-align:center;border-radius:8px}
+.burger{display:none}
+
+/* hero */
+.hero{position:relative;height:min(86vh,820px);min-height:520px;color:#fff;overflow:hidden;background:#20151c}
+.hero video,.hero .poster{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(29,20,25,.6) 0%,rgba(29,20,25,.2) 55%,rgba(29,20,25,0) 80%),linear-gradient(180deg,rgba(29,20,25,.2) 0%,rgba(29,20,25,0) 30%,rgba(29,20,25,.25) 55%,rgba(29,20,25,.85) 100%)}
+.hero .wrap{position:relative;z-index:1;height:100%;display:flex;flex-direction:column;justify-content:flex-end;padding-bottom:clamp(40px,6vw,72px)}
+.hero .label{color:rgba(255,255,255,.85);margin-bottom:16px}
+.hero h1{font-size:clamp(44px,7vw,96px);max-width:12ch}
+.hero p{font-size:clamp(17px,1.5vw,20px);max-width:44ch;margin:20px 0 30px;opacity:.92}
+.hero .ctas{display:flex;gap:12px;flex-wrap:wrap}
+.pause{position:absolute;z-index:2;right:var(--gut);bottom:clamp(40px,6vw,72px);width:44px;height:44px;border-radius:50%;border:1px solid rgba(255,255,255,.6);display:grid;place-items:center;color:#fff}
+.pause svg{width:14px;height:14px;fill:#fff}
+
+/* marquee */
+.marquee{background:var(--coral);color:#fff;overflow:hidden;font:400 clamp(18px,1.8vw,24px)/1 var(--display);padding:16px 0}
+.marquee .track{display:flex;width:max-content;animation:mq 40s linear infinite}
+.marquee:hover .track{animation-play-state:paused}
+.marquee span{padding:0 28px;white-space:nowrap;display:flex;align-items:center;gap:56px}
+.marquee span::after{content:"✦";font-size:.6em;opacity:.8}
+@keyframes mq{to{transform:translateX(-50%)}}
+
+/* intro */
+.intro{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,6vw,96px);align-items:start}
+.intro p{font-size:18px;line-height:1.45;color:#3d3238;max-width:52ch;margin-bottom:24px}
+
+/* categories */
+.cats{display:grid;grid-template-columns:repeat(6,1fr);gap:16px}
+.cat{background:var(--stone);border-radius:2px;padding:18px 18px 16px;display:flex;flex-direction:column;gap:12px;transition:background .3s}
+.cat:hover{background:#eee6e4}
+.cat img{aspect-ratio:1;object-fit:contain;mix-blend-mode:multiply;width:100%;transition:transform .5s var(--ease)}
+.cat:hover img{transform:scale(1.05)}
+.cat strong{font:500 15px var(--sans)}
+.cat small{font:400 13px var(--sans);color:var(--muted)}
+
+/* museum chips */
+.museums{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+.chip{font:400 14px var(--sans);border:1px solid var(--line);border-radius:999px;padding:9px 16px}
+.chip:hover{border-color:var(--plum)}
+
+/* carousel + cards (one shared component) */
+.rail{display:grid;grid-auto-flow:column;grid-auto-columns:calc((100% - 3*20px)/4);gap:20px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;scroll-behavior:smooth}
+.rail::-webkit-scrollbar{display:none}
+.card{scroll-snap-align:start;display:flex;flex-direction:column;gap:12px}
+.card .ph{position:relative;background:var(--stone);aspect-ratio:4/5;display:grid;place-items:center;overflow:hidden}
+.card .ph img{width:72%;height:72%;object-fit:contain;mix-blend-mode:multiply;transition:transform .6s var(--ease)}
+.card:hover .ph img{transform:scale(1.04)}
+.card .tag{position:absolute;top:12px;left:12px;font:500 12px var(--sans);background:#fff;padding:5px 9px;border-radius:2px}
+.card .fav{position:absolute;top:10px;right:10px;width:36px;height:36px;border-radius:50%;background:#fff;display:grid;place-items:center}
+.card .fav svg{width:16px;height:16px;stroke:var(--ink);fill:none;stroke-width:1.6}
+.card .add{position:absolute;left:12px;right:12px;bottom:12px;background:var(--plum);color:#fff;font:500 14px var(--sans);padding:12px;opacity:0;transform:translateY(8px);transition:.35s var(--ease)}
+.card:hover .add,.card:focus-within .add{opacity:1;transform:none}
+.card h3{font:400 15px/1.35 var(--sans);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:2.7em}
+.card .meta{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.card .price{font:500 15px var(--sans)}
+.card .from{font:400 13px var(--sans);color:var(--muted)}
+.ctrl{display:flex;align-items:center;gap:16px;margin-top:28px}
+.ctrl .bar{flex:1;height:2px;background:var(--line);position:relative}
+.ctrl .bar i{position:absolute;inset:0 auto 0 0;background:var(--plum);width:25%;transition:left .3s,width .3s}
+.arr{width:44px;height:44px;border:1px solid var(--line);border-radius:50%;display:grid;place-items:center;transition:border-color .2s}
+.arr:hover{border-color:var(--plum)}
+.arr svg{width:16px;height:16px;stroke:var(--ink);fill:none;stroke-width:1.6}
+.arr[disabled]{opacity:.35;cursor:default}
+
+/* desert rose feature */
+.feature{background:#2a1a24;color:#fff;overflow:hidden}
+.feature .wrap{display:grid;grid-template-columns:1.1fr 1fr;align-items:center;gap:clamp(24px,5vw,80px);min-height:560px}
+.feature .art{position:relative;align-self:stretch;display:grid;place-items:center;background:radial-gradient(70% 60% at 50% 55%,#f6ede1 0%,#e8d6bf 60%,#d9bf9c 100%)}
+.feature .art img{width:min(72%,460px);mix-blend-mode:multiply}
+.feature .art .grain{position:absolute;inset:auto 0 0;height:30%;background:linear-gradient(0deg,rgba(176,134,86,.25),transparent)}
+.feature .label{color:rgba(255,255,255,.7);display:block;margin-bottom:16px}
+.feature h2{font-size:clamp(36px,4.4vw,64px);margin-bottom:22px}
+.feature p{font-size:18px;line-height:1.45;color:rgba(255,255,255,.82);max-width:42ch;margin-bottom:30px}
+.feature .ctas{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.feature .price{font:500 15px var(--sans);color:rgba(255,255,255,.8);margin-left:8px}
+
+/* lookbook */
+.tabs{display:flex;gap:6px;flex-wrap:wrap}
+.tab{font:400 14px var(--sans);padding:10px 16px;border-radius:999px;border:1px solid var(--line)}
+.tab[aria-selected=true]{background:var(--plum);border-color:var(--plum);color:#fff}
+.look{display:grid;grid-template-columns:1.7fr 1fr;gap:24px}
+.stage{position:relative;background:var(--stone);aspect-ratio:4/3;overflow:hidden}
+.stage>img{width:100%;height:100%;object-fit:cover}
+.hint{position:absolute;left:16px;bottom:16px;background:rgba(255,255,255,.94);font:500 13px var(--sans);padding:8px 12px;border-radius:999px;display:flex;gap:8px;align-items:center}
+.hint i{width:8px;height:8px;border-radius:50%;background:var(--coral)}
+.dot{position:absolute;width:30px;height:30px;margin:-15px 0 0 -15px;border-radius:50%;background:var(--coral);border:3px solid #fff;box-shadow:0 2px 10px rgba(0,0,0,.25)}
+.dot::before{content:"";position:absolute;inset:-9px;border-radius:50%;border:2px solid var(--coral);animation:pulse 2.2s var(--ease) infinite}
+@keyframes pulse{0%{transform:scale(.6);opacity:1}100%{transform:scale(1.4);opacity:0}}
+.dot .tip{position:absolute;left:50%;bottom:calc(100% + 14px);transform:translate(-50%,6px);background:#fff;color:var(--ink);border-radius:2px;padding:10px 12px;box-shadow:0 8px 24px rgba(0,0,0,.18);display:flex;gap:10px;align-items:center;width:max-content;max-width:240px;text-align:left;opacity:0;pointer-events:none;transition:.25s var(--ease)}
+.dot .tip img{width:40px;height:40px;object-fit:contain;mix-blend-mode:multiply;background:var(--stone)}
+.dot .tip b{display:block;font:500 13px/1.25 var(--sans)}.dot .tip span{font:400 13px var(--sans);color:var(--muted)}
+.dot:hover .tip,.dot:focus-visible .tip,.dot.on .tip{opacity:1;transform:translate(-50%,0)}
+.dot.on{background:var(--plum)}
+.side{display:flex;flex-direction:column;gap:20px}
+.side .story{font-size:18px;line-height:1.45;color:#3d3238}
+.side .story b{font:500 13px var(--sans);display:block;color:var(--muted);margin-bottom:8px}
+.mini{display:grid;grid-template-columns:72px 1fr auto;gap:14px;align-items:center;padding:12px 0;border-top:1px solid var(--line);transition:background .2s}
+.mini:hover,.mini.on{background:var(--stone)}
+.mini img{width:72px;height:72px;object-fit:contain;mix-blend-mode:multiply;background:var(--stone)}
+.mini b{font:400 15px/1.3 var(--sans)}.mini span{font:500 15px var(--sans)}
+
+/* books / collections */
+.coll{background:var(--stone)}
+.coll .card .ph{background:#fff}
+
+/* artists */
+.artists{background:var(--plum);color:#fff}
+.artists .label{color:rgba(255,255,255,.7)}
+.artists .rail{grid-auto-columns:calc((100% - 5*16px)/6);gap:16px}
+.artist{scroll-snap-align:start}
+.artist .ph{aspect-ratio:3/4;overflow:hidden;background:#4a2e44}
+.artist img{width:100%;height:100%;object-fit:cover;object-position:50% 20%;transition:transform .6s var(--ease)}
+.artist:hover img{transform:scale(1.04)}
+.artist b{display:block;font:400 15px/1.3 var(--sans);margin-top:12px}
+.artists .arr{border-color:rgba(255,255,255,.3)}.artists .arr svg{stroke:#fff}
+.artists .ctrl .bar{background:rgba(255,255,255,.2)}.artists .ctrl .bar i{background:var(--coral)}
+
+/* journal */
+.posts{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.post img{aspect-ratio:4/3;object-fit:cover;width:100%;background:var(--stone)}
+.post .label{margin:14px 0 8px;display:block}
+.post h3{font:400 20px/1.2 var(--display)}
+
+/* trust */
+.trust{border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.trust .wrap{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;padding-top:36px;padding-bottom:36px}
+.trust div{display:flex;gap:14px;align-items:flex-start}
+.trust svg{flex:none;width:28px;height:28px;stroke:var(--coral);fill:none;stroke-width:1.4}
+.trust b{display:block;font:500 15px var(--sans);margin-bottom:4px}
+.trust span{font:400 14px/1.35 var(--sans);color:var(--muted)}
+
+/* footer */
+footer{background:var(--plum);color:#fff;font:400 14px var(--sans)}
+.ft{display:grid;grid-template-columns:1.2fr 1fr 1fr 1.6fr;gap:32px;padding-top:64px;padding-bottom:48px}
+.ft h4{font:500 14px var(--sans);margin-bottom:16px}
+.ft ul{list-style:none;display:grid;gap:10px;opacity:.8}
+.ft .news p{font:400 22px/1.15 var(--display);margin-bottom:18px}
+.ft form{display:flex;border-bottom:1px solid rgba(255,255,255,.4)}
+.ft input{flex:1;background:none;border:0;color:#fff;font:400 15px var(--sans);padding:12px 0}
+.ft input::placeholder{color:rgba(255,255,255,.6)}
+.ft form button{font:500 14px var(--sans);color:var(--coral)}
+.fb{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;padding-top:20px;padding-bottom:28px;border-top:1px solid rgba(255,255,255,.15);opacity:.7;font-size:13px}
+.note{position:fixed;left:16px;bottom:16px;z-index:30;background:var(--ink);color:#fff;font:400 12px var(--sans);padding:8px 12px;border-radius:2px;opacity:.85}
+
+@media (prefers-reduced-motion:reduce){
+  .marquee .track,.dot::before{animation:none}
+  *{transition:none!important}
+}
+@media (max-width:1100px){
+  .nav{display:none}.burger{display:block}.hd{grid-template-columns:auto 1fr auto}
+  .search{width:auto;flex:1}
+  .cats{grid-template-columns:repeat(3,1fr)}
+  .rail{grid-auto-columns:calc((100% - 2*20px)/3)}
+  .artists .rail{grid-auto-columns:calc((100% - 3*16px)/4)}
+  .posts{grid-template-columns:repeat(2,1fr)}
+  .trust .wrap{grid-template-columns:repeat(2,1fr)}
+  .ft{grid-template-columns:1fr 1fr}
+}
+@media (max-width:760px){
+  .topbar .wrap{gap:14px;font-size:12px}.topbar span:nth-child(n+2){display:none}
+  .hd{gap:12px;height:60px}.search{display:none}.tools{gap:12px}
+  .hero{height:78vh;min-height:520px}
+  .hero .ctas .btn{flex:1;justify-content:center}
+  .pause{top:16px;bottom:auto}
+  .intro{grid-template-columns:1fr}
+  .cats{grid-template-columns:repeat(2,1fr);gap:10px}
+  .rail{grid-auto-columns:72%;gap:14px}
+  .artists .rail{grid-auto-columns:44%;gap:12px}
+  .card .add{opacity:1;transform:none}
+  .feature .wrap{grid-template-columns:1fr;padding:0;min-height:0}
+  .feature .art{aspect-ratio:1}
+  .feature .copy{padding:40px var(--gut) 56px}
+  .look{grid-template-columns:1fr}
+  .stage{aspect-ratio:4/5}
+  .sec-head{flex-direction:column;align-items:flex-start}
+  .posts{grid-template-columns:1fr 1fr;gap:14px}.post h3{font-size:17px}
+  .trust .wrap{grid-template-columns:1fr 1fr;gap:20px}
+  .ft{grid-template-columns:1fr 1fr}.ft .news{grid-column:1/-1;order:-1}
+  .ctrl .arr{display:none}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar"><div class="wrap">
+  <span>Official store of Qatar Museums</span><span>Delivery across Qatar</span><span>Gift wrapping on every order</span>
+</div></div>
+
+<header><div class="wrap hd">
+  <a class="logo" href="#">Qatar Creates<small>/Market</small></a>
+  <nav class="nav" aria-label="Main">
+    <a href="#">Museums</a><a href="#">Homeware</a><a href="#">Fashion</a><a href="#">Souvenirs</a><a href="#">Books</a><a href="#">Exhibitions</a><a href="#">Artists</a>
+  </nav>
+  <div class="tools">
+    <label class="search"><svg class="ico" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>Search gifts, artists…</label>
+    <a class="lang" href="#" lang="ar">العربية</a>
+    <a href="#" aria-label="Account"><svg class="ico" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg></a>
+    <a href="#" aria-label="Wishlist"><svg class="ico" viewBox="0 0 24 24"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg></a>
+    <a class="cart" href="#" aria-label="Bag, 2 items"><svg class="ico" viewBox="0 0 24 24"><path d="M5 8h14l-1 13H6z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg><b>2</b></a>
+    <button class="burger" aria-label="Menu"><svg class="ico" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+  </div>
+</div></header>
+
+<section class="hero">
+  <video id="hv" autoplay muted loop playsinline poster="https://market.qacreates.com/media/wysiwyg/Museum_of_Islamic_Art_overlay_.jpeg">
+    <source src="https://market.qacreates.com/media/wysiwyg/home/QC%20MARKET%20WEBSITE%20MONTAGE%20v2%20(2).mp4" type="video/mp4">
+  </video>
+  <div class="wrap">
+    <span class="label">QC Market</span>
+    <h1>Marketplace of <em>collectable culture</em></h1>
+    <p>Objects from Qatar Museums and our artist network, chosen for the stories they carry.</p>
+    <div class="ctas">
+      <a class="btn btn-coral" href="#best">Shop best sellers</a>
+      <a class="btn btn-ghost" href="#shop">Shop by museum</a>
+    </div>
+  </div>
+  <button class="pause" id="pause" aria-label="Pause video"><svg viewBox="0 0 14 14"><rect x="2" y="1" width="3.5" height="12"/><rect x="8.5" y="1" width="3.5" height="12"/></svg></button>
+</section>
+
+<div class="marquee" aria-hidden="true"><div class="track">
+  <span>Limited editions</span><span>Exclusive designs</span><span>Books collection</span><span>Qatar map collection</span><span>Artist collaborations</span>
+  <span>Limited editions</span><span>Exclusive designs</span><span>Books collection</span><span>Qatar map collection</span><span>Artist collaborations</span>
+</div></div>
+
+<section class="sec" id="shop"><div class="wrap">
+  <div class="sec-head">
+    <div><span class="label">Shop by category</span><h2>Find the right <em>gift</em></h2></div>
+    <a class="link" href="#">View all →</a>
+  </div>
+  <div class="cats">
+    <a class="cat" href="#"><img src="https://market.qacreates.com/media/catalog/product/cache/984611575bef16f8fd83c1b0434e6d24/g/h/ghawa_cups_nmoq_a.png" alt=""><div><strong>Homeware</strong><br><small>Cups, mubkhars, trays</small></div></a>
+    <a class="cat" href="#"><img src="https://market.qacreates.com/media/catalog/product/cache/984611575bef16f8fd83c1b0434e6d24/t/f/tfas001413_qatar_map_tote_bag.png" alt=""><div><strong>Fashion</strong><br><small>Bags, scarves, jewellery</small></div></a>
+    <a class="cat" href="#"><img src="https://market.qacreates.com/media/catalog/product/cache/984611575bef16f8fd83c1b0434e6d24/a/c/acch01011c.png" alt=""><div><strong>Souvenirs</strong><br><small>Made in Qatar</small></div></a>
+    <a class="cat" href="#"><img src="https://market.qacreates.com/media/catalog/product/cache/984611575bef16f8fd83c1b0434e6d24/b/a/baghdad_catalogue_cover.jpg" alt=""><div><strong>Books</strong><br><small>Catalogues and monographs</small></div></a>
+    <a class="cat" href="#"><img src="https://market.qacreates.com/media/catalog/product/cache/984611575bef16f8fd83c1b0434e6d24/g/r/grey_4.png" alt=""><div><strong>Collectibles</strong><br><small>Limited artist editions</small></div></a>
+    <a class="cat" href="#"><img src="https://market.qacreates.com/media/catalog/product/cache/984611575bef16f8fd83c1b0434e6d24/t/s/tsvr004688_qatar_map_feather_pen_writing_set_a.png" alt=""><div><strong>Stationery</strong><br><small>Pens, notebooks, prints</small></div></a>
+  </div>
+  <div class="museums">
+    <a class="chip" href="#">Museum of Islamic Art</a><a class="chip" href="#">National Museum of Qatar</a><a class="chip" href="#">3-2-1 Qatar Olympic and Sports Museum</a><a class="chip" href="#">Art Mill Museum</a>
+  </div>
+</div></section>
+
+<section class="sec" id="best" style="padding-top:0"><div class="wrap">
+  <div class="sec-head">
+    <div><span class="label">Most loved this month</span><h2>Best sellers</h2></div>
+    <a class="link" href="#">Shop all best sellers →</a>
+  </div>
+  <div class="carousel">
+    <div class="rail" data-items='[
+      ["Desert Rose Glitter Snow Globe","QR 200","Souvenirs","t/s/tsvr004580_desert_rose_snow_globe_with_glitter_premium_12cm_c.png","Best seller"],
+      ["Urs Fischer’s Untitled (Lamp/Bear) Vinyl Figure","QR 700","Collectibles","t/s/tsvr004049_urs_fischer_vinyl_toy_lamp_bear_30cm_size_38_x_40_x_30_cm_c.png","Limited"],
+      ["Print – HH Father Emir – 40×50 cm","QR 250","Prints","0/2/02.png",""],
+      ["HH Father Emir Sheikh Hamad bin Khalifa Al Thani – Notebook","QR 120","Stationery","p/b/pb7233-1_-_front_1.png",""],
+      ["Desert Rose Large","QR 320","Souvenirs","a/c/acch01011c.png",""],
+      ["Qatar Motifs Gahwa Cups","QR 180","National Museum of Qatar","g/h/ghawa_cups_nmoq_a.png",""],
+      ["Qatar Map Calligraphy Pen Writing Set","QR 275","Stationery","t/s/tsvr004688_qatar_map_feather_pen_writing_set_a.png","New"],
+      ["Motherland Mask – Miniature (Maroon)","QR 280","Collectibles","t/s/tsvr003657_motherland_mask_replica_mini-qatar_maroon_b.png",""]
+    ]'></div>
+    <div class="ctrl"><button class="arr prev" aria-label="Previous"><svg viewBox="0 0 16 16"><path d="M10 3 5 8l5 5"/></svg></button><div class="bar"><i></i></div><button class="arr next" aria-label="Next"><svg viewBox="0 0 16 16"><path d="m6 3 5 5-5 5"/></svg></button></div>
+  </div>
+</div></section>
+
+<section class="feature"><div class="wrap">
+  <div class="art"><div class="grain"></div><img src="https://market.qacreates.com/media/catalog/product/cache/984611575bef16f8fd83c1b0434e6d24/a/c/acch01011c.png" alt="Desert Rose sculpture"></div>
+  <div class="copy">
+    <span class="label">QC+ signature piece</span>
+    <h2>Desert Rose,<br><em>from sand to sculpture</em></h2>
+    <p>Formed by wind and water in the Qatari desert, and the shape behind the National Museum of Qatar. Follow its story in 3D, then take one home.</p>
+    <div class="ctas">
+      <a class="btn btn-coral" href="https://naeem4191-oss.github.io/desert-rose-v2/">Explore in 3D</a>
+      <a class="btn btn-ghost" href="#">Shop Desert Rose</a>
+    </div>
+  </div>
+</div></section>
+
+<section class="sec"><div class="wrap">
+  <div class="sec-head">
+    <div><span class="label">Get the look</span><h2>Step into our world with the <em>lifestyle edit</em></h2></div>
+    <div class="tabs" role="tablist" id="ltabs"></div>
+  </div>
+  <div class="look">
+    <div class="stage" id="stage"><img id="limg" alt=""><span class="hint"><i></i>Tap a dot to shop the piece</span></div>
+    <div class="side">
+      <p class="story" id="lstory"></p>
+      <div id="llist"></div>
+      <a class="btn btn-plum" href="#" style="align-self:flex-start">Shop the full look</a>
+    </div>
+  </div>
+</div></section>
+
+<section class="sec coll"><div class="wrap">
+  <div class="sec-head">
+    <div><span class="label">Collections</span><h2>From the <em>museum shelves</em></h2></div>
+    <div class="tabs" role="tablist"><button class="tab" role="tab" aria-selected="true">Books collection</button><button class="tab" role="tab" aria-selected="false">Qatar map collection</button></div>
+  </div>
+  <div class="carousel">
+    <div class="rail" data-items='[
+      ["Labour of Love: New Approaches to Palestinian Embroidery","QR 160","Books","c/0/c0ver_1100_1.png",""],
+      ["Baghdad: Eye’s Delight (En)","QR 180","Books","b/a/baghdad_catalogue_cover.jpg",""],
+      ["A Falcon’s Eye: Tribute to Sheikh Saoud Al Thani (Hardback, English)","QR 250","Books","c/b/cbok000231-small.png",""],
+      ["Qatar Map Incense Diffuser","QR 130","Qatar map","t/h/thwr001191_qatar_map_incense_diffuser_-_set_of_3_x_50ml_d_1.png",""],
+      ["Qatar Map Pencil","QR 40","Qatar map","t/s/tsvr004578_qatar_map_graphite_pencil_black_a_1.png",""],
+      ["Qatar Map Tote Bag","QR 90","Qatar map","t/f/tfas001413_qatar_map_tote_bag.png",""]
+    ]'></div>
+    <div class="ctrl"><button class="arr prev" aria-label="Previous"><svg viewBox="0 0 16 16"><path d="M10 3 5 8l5 5"/></svg></button><div class="bar"><i></i></div><button class="arr next" aria-label="Next"><svg viewBox="0 0 16 16"><path d="m6 3 5 5-5 5"/></svg></button></div>
+  </div>
+</div></section>
+
+<section class="sec artists"><div class="wrap">
+  <div class="sec-head">
+    <div><span class="label">Creative connections</span><h2>Explore our <em>artist network</em></h2></div>
+    <a class="link" href="#">View all artists →</a>
+  </div>
+  <div class="carousel">
+    <div class="rail" id="arail"></div>
+    <div class="ctrl"><button class="arr prev" aria-label="Previous"><svg viewBox="0 0 16 16"><path d="M10 3 5 8l5 5"/></svg></button><div class="bar"><i></i></div><button class="arr next" aria-label="Next"><svg viewBox="0 0 16 16"><path d="m6 3 5 5-5 5"/></svg></button></div>
+  </div>
+</div></section>
+
+<section class="sec"><div class="wrap">
+  <div class="sec-head">
+    <div><span class="label">Journal</span><h2>Stories behind the <em>objects</em></h2></div>
+    <a class="link" href="#">Read the journal →</a>
+  </div>
+  <div class="posts">
+    <a class="post" href="#"><img src="https://market.qacreates.com/media/mageplaza/blog/post/resize/400x/i/m/image_2_.png" alt=""><span class="label">Events</span><h3>Art Basel Qatar</h3></a>
+    <a class="post" href="#"><img src="https://market.qacreates.com/media/mageplaza/blog/post/resize/400x/i/m/image_3_.png" alt=""><span class="label">Exhibitions</span><h3>Sneakers Unboxed: Studio to Street</h3></a>
+    <a class="post" href="#"><img src="https://market.qacreates.com/media/mageplaza/blog/post/resize/400x/i/m/image_3_.png" alt=""><span class="label">Heritage</span><h3>A Nation’s Legacy, A People’s Memory: Fifty Years Told</h3></a>
+    <a class="post" href="#"><img src="https://market.qacreates.com/media/mageplaza/blog/post/resize/400x/i/m/image_2__2.png" alt=""><span class="label">Exhibitions</span><h3>Countryside: A Place to Live, Not to Leave</h3></a>
+  </div>
+</div></section>
+
+<section class="trust"><div class="wrap">
+  <div><svg viewBox="0 0 28 28"><path d="M3 9h15v11H3zM18 13h4l3 3v4h-7"/><circle cx="8" cy="21" r="2"/><circle cx="21" cy="21" r="2"/></svg><p><b>Delivery across Qatar</b><span>Tracked from our museum stores</span></p></div>
+  <div><svg viewBox="0 0 28 28"><rect x="4" y="11" width="20" height="13"/><path d="M4 11h20v-4H4zM14 7v17M14 7c-2-4-7-4-7-1s7 1 7 1 7 2 7-1-5-3-7 1"/></svg><p><b>Gift wrapping</b><span>Add a note at checkout</span></p></div>
+  <div><svg viewBox="0 0 28 28"><path d="M14 3 5 7v7c0 6 4 9 9 11 5-2 9-5 9-11V7z"/><path d="m10 14 3 3 5-6"/></svg><p><b>Authentic and licensed</b><span>Official Qatar Museums products</span></p></div>
+  <div><svg viewBox="0 0 28 28"><path d="M5 12a9 9 0 1 1 2 7"/><path d="M5 5v7h7"/></svg><p><b>Easy returns</b><span>See our refund and exchange policy</span></p></div>
+</div></section>
+
+<footer>
+  <div class="wrap ft">
+    <div><span class="logo" style="color:#fff">Qatar Creates<small>/Market</small></span></div>
+    <div><h4>About us</h4><ul><li>FAQs</li><li>About us</li><li>Vendors</li><li>Artists</li></ul></div>
+    <div><h4>Customer support</h4><ul><li>Contact us</li><li>Order track</li><li>Refund and exchange</li><li>Shipping</li><li>Request return</li></ul></div>
+    <div class="news"><p>New pieces, artist drops and museum openings, once a month.</p><form onsubmit="return false"><input type="email" placeholder="Email address" aria-label="Email address"><button>Subscribe →</button></form></div>
+  </div>
+  <div class="wrap fb"><span>© 2026 QC+ E-Commerce</span><span>Facebook · Instagram · YouTube</span><span>Terms and conditions · Privacy policy</span></div>
+</footer>
+
+<div class="note">Concept mockup · links are placeholders</div>
+
+<script>
+const IMG = p => 'https://market.qacreates.com/media/catalog/product/cache/984611575bef16f8fd83c1b0434e6d24/' + p;
+const heart = '<svg viewBox="0 0 24 24"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg>';
+
+// product rails: one card component everywhere
+document.querySelectorAll('.rail[data-items]').forEach(r => {
+  r.innerHTML = JSON.parse(r.dataset.items).map(([n, p, from, img, tag]) => `
+    <a class="card" href="#">
+      <div class="ph">${tag ? `<span class="tag">${tag}</span>` : ''}
+        <span class="fav" aria-label="Add to wishlist">${heart}</span>
+        <img src="${IMG(img)}" alt="" loading="lazy">
+        <button class="add" onclick="event.preventDefault()">Add to bag</button></div>
+      <h3>${n}</h3>
+      <div class="meta"><span class="price">${p}</span><span class="from">${from}</span></div>
+    </a>`).join('');
+});
+
+// artists: names always visible
+const artists = [['Patricia Alexandra Alves de Sousa','Patricia'],['Yousef Ahmed','Yousef_Ahmed'],['Abhilash Chacko','Abhilash_1_1'],['Abrar Al Janahi','Abrar_Janahi'],['Fatima Al Sharshani','Fatima_Sharshani'],['Maryam Al Homaid','Maryam_AlHomaid'],['May Al Mannai','May_almannai'],['Mubarak Nasser Al Thani','Mubrak_Al_Thani'],['Nasser Abdulla Al Kubaisi','Nasser_Alkubaisi'],['Sae Mi Kim','Saemi'],['Shouq Al Mana','Shouq_AL-Mana'],['Fares Raphael Cachoux','Fares']];
+document.getElementById('arail').innerHTML = artists.map(([n, f]) =>
+  `<a class="artist" href="#"><div class="ph"><img src="https://market.qacreates.com/media/amasty/shopby/option_images/slider/${f}.png" alt="" loading="lazy"></div><b>${n}</b></a>`).join('');
+
+// shared carousel controls
+document.querySelectorAll('.carousel').forEach(c => {
+  const r = c.querySelector('.rail'), bar = c.querySelector('.bar i'), prev = c.querySelector('.prev'), next = c.querySelector('.next');
+  const sync = () => {
+    const max = r.scrollWidth - r.clientWidth, w = r.clientWidth / r.scrollWidth;
+    bar.style.width = w * 100 + '%';
+    bar.style.left = (max ? r.scrollLeft / max : 0) * (1 - w) * 100 + '%';
+    prev.disabled = r.scrollLeft < 4; next.disabled = r.scrollLeft > max - 4;
+  };
+  prev.onclick = () => r.scrollBy({ left: -r.clientWidth * .8 });
+  next.onclick = () => r.scrollBy({ left: r.clientWidth * .8 });
+  r.addEventListener('scroll', sync, { passive: true }); addEventListener('resize', sync); setTimeout(sync, 50);
+});
+
+// hero video: pause control + reduced motion
+const v = document.getElementById('hv'), pb = document.getElementById('pause');
+const icons = { pause: '<svg viewBox="0 0 14 14"><rect x="2" y="1" width="3.5" height="12"/><rect x="8.5" y="1" width="3.5" height="12"/></svg>', play: '<svg viewBox="0 0 14 14"><path d="M3 1l10 6-10 6z"/></svg>' };
+const setBtn = () => { pb.innerHTML = v.paused ? icons.play : icons.pause; pb.setAttribute('aria-label', v.paused ? 'Play video' : 'Pause video'); };
+pb.onclick = () => { v.paused ? v.play() : v.pause(); setBtn(); };
+if (matchMedia('(prefers-reduced-motion: reduce)').matches) { v.removeAttribute('autoplay'); v.pause(); }
+v.addEventListener('play', setBtn); v.addEventListener('pause', setBtn);
+
+// lookbook
+const looks = {
+  'Egal': { img: 'https://market.qacreates.com/media/catalog/product/e/g/egal.jpeg',
+    story: 'The egal, the black cord that holds the ghutra, reworked as a monumental form. These pieces carry the same lines home.',
+    items: [[30, 42, 'Qatar Map Calligraphy Pen Writing Set', 'QR 275', 't/s/tsvr004688_qatar_map_feather_pen_writing_set_a.png'], [62, 58, 'Qatar Map Tote Bag', 'QR 90', 't/f/tfas001413_qatar_map_tote_bag.png'], [74, 34, 'Qatar Map Incense Diffuser', 'QR 130', 't/h/thwr001191_qatar_map_incense_diffuser_-_set_of_3_x_50ml_d_1.png']] },
+  'Motherland': { img: 'https://market.qacreates.com/media/catalog/product/m/o/motherland.jpeg',
+    story: 'The Motherland mask on display, and the objects drawn from it: a miniature replica and motifs for the majlis.',
+    items: [[48, 38, 'Motherland Mask – Miniature (Maroon)', 'QR 280', 't/s/tsvr003657_motherland_mask_replica_mini-qatar_maroon_b.png'], [28, 66, 'Qatar Motifs Gahwa Cups', 'QR 180', 'g/h/ghawa_cups_nmoq_a.png'], [70, 70, 'HH Father Emir – Notebook', 'QR 120', 'p/b/pb7233-1_-_front_1.png']] },
+  'Untitled (Lamp/Bear)': { img: 'https://market.qacreates.com/media/catalog/product/u/r/ursfisher_4_1.jpg',
+    story: 'Urs Fischer’s giant yellow bear, scaled down to a 30 cm vinyl edition, alongside other collectible figures.',
+    items: [[50, 46, 'Urs Fischer’s Untitled (Lamp/Bear) Vinyl Figure', 'QR 700', 't/s/tsvr004049_urs_fischer_vinyl_toy_lamp_bear_30cm_size_38_x_40_x_30_cm_c.png'], [22, 70, 'KAWS The Promise – Grey', 'QR 1,760', 'g/r/grey_4.png'], [78, 72, 'KAWS Small Lie – Black', 'QR 950', 'r/e/rep02007_2.png']] }
+};
+const tabs = document.getElementById('ltabs'), stage = document.getElementById('stage');
+function showLook(k) {
+  const L = looks[k];
+  [...tabs.children].forEach(t => t.setAttribute('aria-selected', t.textContent === k));
+  document.getElementById('limg').src = L.img;
+  document.getElementById('limg').alt = k;
+  document.getElementById('lstory').innerHTML = `<b>The inspiration</b>${L.story}`;
+  stage.querySelectorAll('.dot').forEach(d => d.remove());
+  L.items.forEach(([x, y, n, p, img], i) => {
+    const d = document.createElement('button');
+    d.className = 'dot'; d.style.left = x + '%'; d.style.top = y + '%'; d.dataset.i = i;
+    d.setAttribute('aria-label', `${n}, ${p}`);
+    d.innerHTML = `<span class="tip"><img src="${IMG(img)}" alt=""><span><b>${n}</b><span>${p} · View</span></span></span>`;
+    d.onmouseenter = d.onfocus = () => hl(i);
+    stage.appendChild(d);
+  });
+  document.getElementById('llist').innerHTML = L.items.map(([, , n, p, img], i) =>
+    `<a class="mini" href="#" data-i="${i}" onmouseenter="hl(${i})"><img src="${IMG(img)}" alt=""><b>${n}</b><span>${p}</span></a>`).join('');
+}
+function hl(i) {
+  stage.querySelectorAll('.dot').forEach(d => d.classList.toggle('on', +d.dataset.i === i));
+  document.querySelectorAll('.mini').forEach(m => m.classList.toggle('on', +m.dataset.i === i));
+}
+Object.keys(looks).forEach(k => {
+  const b = document.createElement('button');
+  b.className = 'tab'; b.role = 'tab'; b.textContent = k; b.onclick = () => showLook(k);
+  tabs.appendChild(b);
+});
+showLook('Motherland');
+</script>
+</body>
+</html>
